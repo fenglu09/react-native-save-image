@@ -10,6 +10,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 import android.media.MediaScannerConnection;
 
@@ -54,13 +55,14 @@ public class SaveImageModule extends ReactContextBaseJavaModule{
     }
     
     @ReactMethod
-    public void downloadImage(String url,String saveName){
+    public void downloadImage(String url,String imageSuffix){
         mContext = getCurrentActivity();
         filePath = url;
-        suffix = filePath.substring( filePath.lastIndexOf(".") + 1 );
-        if( suffix.indexOf("?") != -1 ){
-            suffix = suffix.substring(0, suffix.indexOf("?"));
-        }
+        suffix = imageSuffix;
+        // suffix = filePath.substring( filePath.lastIndexOf(".") + 1 );
+        // if( suffix.indexOf("?") != -1 ){
+        //     suffix = suffix.substring(0, suffix.indexOf("?"));
+        // }
         mSaveDialog = ProgressDialog.show(mContext,"保存图片","图片正在保存中...",true);
         new Thread(saveFileRunnable).start();
     }
@@ -83,7 +85,9 @@ public class SaveImageModule extends ReactContextBaseJavaModule{
                 @Override
                 public void handleMessage(Message msg) {
                     mSaveDialog.dismiss();
-                    Toast.makeText(mContext, saveMessage, Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(mContext, saveMessage, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0 , 0);;
+                    toast.show();
                 }
             };
             try{

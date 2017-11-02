@@ -59,7 +59,7 @@
 	    render(){
 	    	return(
 		    <View style={styles.container}>
-		        <TouchableHighlight onLongPress={()=>SaveImage.downloadImage(图片地址)}>
+		        <TouchableHighlight onLongPress={()=>SaveImage.downloadImage(fileUrl, fileSuffix)}>
 		 	    <Image
 			        source={{uri:图片地址}}
 			        style={styles.images}
@@ -76,6 +76,6 @@
 
     SaveImage.setAlbumName(String dirName); 		   // 保存到相册的文件夹
     SaveImage.setCompressQuality(int compressQuality);     // 整数品质
-    SaveImage.downloadImage(String Url);  	           // 图片地址,例如 http://www.baidu.com/logo.png
+    SaveImage.downloadImage(String Url, String suffix);  	           // 图片地址,例如 http://www.baidu.com/logo.png
 
 
